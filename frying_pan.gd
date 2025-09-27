@@ -9,7 +9,7 @@ const lines: Array[String] = [
 	"• Cook food over a fire or camp stove",
 	"• Boil water for purification",
 	"• Signal for help by reflecting sunlight",
-	"Always keep cooking equipment clean and ready!"
+	
 ]
 
 func _ready():
@@ -25,3 +25,9 @@ func _on_interact():
 		# Use the new DialogManager autoload and await completion
 		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above frying pan
 		await DialogManager.start_dialog(dialog_position, lines)
+		
+		# Complete the quest objective for frying pan interaction
+		var quest_node = get_node("../Quest")
+		if quest_node and quest_node.has_method("on_frying_pan_interaction"):
+			quest_node.on_frying_pan_interaction()
+			print("Frying Pan: Quest objective completed!")

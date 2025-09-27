@@ -5,6 +5,11 @@ extends StaticBody2D
 
 const lines: Array[String] = [
 	"This is a water bucket - essential for emergencies!",
+	"Water buckets can store clean water for drinking and cooking.",
+	"In disasters, water supply may be cut off for days.",
+	"Always keep buckets clean and covered to prevent contamination.",
+	"One person needs about 1 gallon of water per day for survival.",
+	"Fill buckets before storms or when disaster warnings are issued!"
 ]
 
 func _ready():
@@ -19,3 +24,9 @@ func _on_interact():
 		# Use the new DialogManager autoload
 		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above water bucket
 		DialogManager.start_dialog(dialog_position, lines)
+		
+		# Complete the quest objective for water bucket interaction
+		var quest_node = get_node("../Quest")
+		if quest_node and quest_node.has_method("on_bucket_interaction"):
+			quest_node.on_bucket_interaction()
+			print("Water Bucket: Quest objective completed!")

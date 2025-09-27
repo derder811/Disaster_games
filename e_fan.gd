@@ -26,3 +26,9 @@ func _on_interact():
 		# Use the new DialogManager autoload
 		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above fan
 		DialogManager.start_dialog(dialog_position, lines)
+		
+		# Complete the quest objective for e_fan interaction
+		var quest_node = get_node("../Quest")
+		if quest_node and quest_node.has_method("on_efan_interaction"):
+			quest_node.on_efan_interaction()
+			print("E-Fan: Quest objective completed!")
