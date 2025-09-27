@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjtfeqjgwd35q"]
+
+[ext_resource type="Script" uid="uid://dr3h8fixii5dx" path="res://asset/Interaction/interaction_manager.gd" id="1_tileu"]
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_tileu")
+
+[node name="Label" type="Label" parent="."]
+z_index = 100
+offset_left = -75.5
+offset_right = 75.5
+offset_bottom = 23.0
+text = "  Press [E] to Interact 
+"
+horizontal_alignment = 1
+vertical_alignment = 1

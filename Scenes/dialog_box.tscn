@@ -1,0 +1,221 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6gs0utdxtg5r"]
+
+[sub_resource type="GDScript" id="GDScript_m7lbh"]
+script/source = "class_name DialogSystem
+extends CanvasLayer
+
+signal dialog_closed
+signal dialog_finished
+
+# Node references
+@onready var dialog_control: Control = $DialogControl
+@onready var title_label: Label = $DialogControl/VBoxContainer/TitleLabel
+@onready var dialog_label: RichTextLabel = $DialogControl/VBoxContainer/ScrollContainer/DialogLabel
+@onready var next_button: Button = $DialogControl/VBoxContainer/ButtonContainer/NextButton
+@onready var close_button: Button = $DialogControl/VBoxContainer/ButtonContainer/CloseButton
+
+var dialog_lines: Array[String] = []
+var current_line_index: int = 0
+var item_name: String = \"\"
+
+# Typing animation variables
+var is_typing: bool = false
+var typing_speed: float = 0.05
+var current_text: String = \"\"
+var target_text: String = \"\"
+
+func _ready():
+	# Hide dialog initially
+	visible = false
+	
+	# Connect button signals
+	next_button.pressed.connect(_on_next_button_pressed)
+	close_button.pressed.connect(_on_close_button_pressed)
+	
+	# Connect to input events
+	set_process_input(true)
+
+func _input(event):
+	if not visible:
+		return
+		
+	if event.is_action_pressed(\"ui_accept\"):
+		if is_typing:
+			# Skip typing animation
+			_finish_typing()
+		else:
+			# Go to next message
+			_next_message()
+	elif event.is_action_pressed(\"ui_cancel\"):
+		close_dialog()
+
+func show_dialog(asset_name: String, messages: Array[String]):
+	if messages.is_empty():
+		return
+		
+	item_name = asset_name
+	dialog_lines = messages
+	current_line_index = 0
+	
+	# Set title
+	title_label.text = asset_name
+	
+	# Show dialog
+	visible = true
+	
+	# Display first message
+	_display_current_message()
+
+func _display_current_message():
+	if current_line_index >= dialog_lines.size():
+		return
+		
+	target_text = dialog_lines[current_line_index]
+	current_text = \"\"
+	dialog_label.text = \"\"
+	
+	# Start typing animation
+	is_typing = true
+	_start_typing()
+
+func _start_typing():
+	var tween = create_tween()
+	var char_count = target_text.length()
+	
+	for i in range(char_count + 1):
+		tween.tween_callback(_update_text.bind(i)).set_delay(i * typing_speed)
+	
+	tween.tween_callback(_finish_typing).set_delay((char_count + 1) * typing_speed)
+
+func _update_text(char_index: int):
+	if char_index <= target_text.length():
+		current_text = target_text.substr(0, char_index)
+		dialog_label.text = current_text
+
+func _finish_typing():
+	is_typing = false
+	current_text = target_text
+	dialog_label.text = target_text
+
+func _next_message():
+	current_line_index += 1
+	
+	if current_line_index < dialog_lines.size():
+		_display_current_message()
+	else:
+		close_dialog()
+
+func close_dialog():
+	visible = false
+	dialog_closed.emit()
+	
+	if current_line_index >= dialog_lines.size():
+		dialog_finished.emit()
+
+func _on_next_button_pressed():
+	if is_typing:
+		_finish_typing()
+	else:
+		_next_message()
+
+func _on_close_button_pressed():
+	close_dialog()"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.1, 0.1, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="DialogBox" type="CanvasLayer" groups=["dialog_system"]]
+layer = 100
+script = SubResource("GDScript_m7lbh")
+
+[node name="DialogControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = 150.0
+offset_right = 208.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.395663, 0.357137)
+mouse_filter = 2
+
+[node name="Background" type="Panel" parent="DialogControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -150.0
+offset_right = 300.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.761929, 1.0101)
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -130.0
+offset_right = 280.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.752023, 1.00378)
+
+[node name="TitleLabel" type="Label" parent="DialogControl/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 24
+text = "Asset Name"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="DialogControl/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DialogControl/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DialogLabel" type="RichTextLabel" parent="DialogControl/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Dialog text will appear here..."
+fit_content = true
+
+[node name="ButtonContainer" type="HBoxContainer" parent="DialogControl/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="NextButton" type="Button" parent="DialogControl/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Next (SPACE)"
+
+[node name="CloseButton" type="Button" parent="DialogControl/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Close (ESC)"

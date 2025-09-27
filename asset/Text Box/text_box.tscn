@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://bo1gtc34l5em"]
+
+[ext_resource type="Texture2D" uid="uid://dyfjsh3wxgvo5" path="res://asset/Text Box/Text Box.png" id="1_iqjc6"]
+[ext_resource type="Script" uid="uid://bens20sfd2p8w" path="res://asset/Text Box/text_box.gd" id="2_2412j"]
+
+[sub_resource type="Theme" id="Theme_7eawq"]
+
+[node name="NinePatchRect" type="NinePatchRect"]
+offset_left = 9.0
+offset_top = 18.0
+offset_right = 97.0
+offset_bottom = 43.0
+texture = ExtResource("1_iqjc6")
+script = ExtResource("2_2412j")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -9.0
+offset_right = 92.0
+offset_bottom = 30.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_7eawq")
+theme_type_variation = &"TooltipLabel"
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "text box"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AutoHideTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AutoHideTimer" to="." method="_on_auto_hide_timer_timeout"]
