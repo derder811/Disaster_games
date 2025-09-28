@@ -11,11 +11,18 @@ var objectives = {
 @onready var objective_checkboxes = []
 @onready var objective_labels = []
 @onready var quest_box: Control
+var original_position: Vector2
+var is_quest_box_visible: bool = false
 
 func _ready():
 	# Get references to the objective checkboxes and labels in the quest UI
 	var objectives_container = get_node("Quest UI/Quest Text Box/Objectives")
 	quest_box = get_node("Quest UI/Quest Text Box")
+	
+	# Store original position and hide quest box initially
+	if quest_box:
+		original_position = quest_box.position
+		hide_quest_box()
 	
 	if objectives_container:
 		print("Quest: Found objectives container with ", objectives_container.get_child_count(), " children")
@@ -173,6 +180,51 @@ func on_bucket_interaction():
 # Function to be called when player interacts with frying pan
 func on_frying_pan_interaction():
 	complete_objective("interact_frying_pan")
+
+# Function to be called when player interacts with bed
+func on_bed_interaction():
+	show_quest_box_with_animation()
+
+func toggle_quest_box_visibility():
+	"""Toggle quest box visibility - show if hidden, hide if shown"""
+	if is_quest_box_visible:
+		hide_quest_box()
+	else:
+		show_quest_box_with_animation()
+
+func hide_quest_box():
+	"""Hide the quest box completely"""
+	if quest_box:
+		quest_box.visible = false
+		quest_box.modulate.a = 0.0
+		quest_box.scale = Vector2(0.8, 0.8)
+		is_quest_box_visible = false
+
+func show_quest_box_with_animation():
+	"""Show quest box with pop animation"""
+	if quest_box and not is_quest_box_visible:
+		is_quest_box_visible = true
+		quest_box.visible = true
+		
+		# Start with small scale and transparent
+		quest_box.scale = Vector2(0.3, 0.3)
+		quest_box.modulate.a = 0.0
+		
+		# Create pop animation
+		var tween = create_tween()
+		tween.set_parallel(true)
+		
+		# Scale animation with bounce effect
+		tween.tween_property(quest_box, "scale", Vector2(1.1, 1.1), 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tween.tween_property(quest_box, "scale", Vector2(1.0, 1.0), 0.2).set_delay(0.3)
+		
+		# Fade in animation
+		tween.tween_property(quest_box, "modulate:a", 1.0, 0.4)
+		
+		# Position animation (slide in from side)
+		var start_position = original_position + Vector2(-100, 0)
+		quest_box.position = start_position
+		tween.tween_property(quest_box, "position", original_position, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 # Global function that can be called from anywhere
 func _notification(what):
