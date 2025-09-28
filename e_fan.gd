@@ -4,15 +4,8 @@ extends StaticBody2D
 @onready var animated_sprite = $CharacterBody2D/AnimatedSprite2D
 
 const lines: Array[String] = [
-	"Electric Fan Safety Tips:",
-	"• Always turn off the fan before cleaning or maintenance",
-	"• Keep the fan away from water and moisture",
-	"• Check the power cord regularly for damage",
-	"• Don't insert objects into the fan blades",
-	"• Ensure proper ventilation around the fan",
-	"• Unplug during thunderstorms to prevent electrical damage",
-	"• Keep children away from moving fan blades",
-	"Fan turned off safely!"
+
+"Fan turned off safely!"
 ]
 
 func _ready():
