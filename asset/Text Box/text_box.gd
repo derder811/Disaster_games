@@ -63,6 +63,12 @@ func _input(event):
 func _show_safety_tips_dialog():
 	print("Current asset type: ", current_asset_type)  # Debug print
 	
+	# Only show dialog if there's a valid asset type
+	if current_asset_type == "":
+		print("No asset type set - closing text box without showing dialog")
+		queue_free()
+		return
+	
 	# Find the DialogBox node in the scene
 	var dialog_box = get_tree().get_first_node_in_group("dialog_system")
 	if dialog_box and dialog_box.has_method("show_dialog"):

@@ -19,12 +19,12 @@ func _on_interact():
 	if overlapping_bodies.size() > 0:
 		sprite.flip_h = overlapping_bodies[0].global_position.x < global_position.x
 		
+		# Show text message without dialog box (no asset_type parameter)
+		var dialog_position = global_position + Vector2(0, -50)  # Position text above bed
+		DialogManager.start_dialog(dialog_position, lines)
+		
 		# Show quest box when interacting with bed
 		var quest_node = get_node("../Quest")
 		if quest_node and quest_node.has_method("on_bed_interaction"):
 			quest_node.on_bed_interaction()
 			print("Bed: Quest box shown!")
-		
-		# Use the new DialogManager autoload and await completion
-		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above bed
-		await DialogManager.start_dialog(dialog_position, lines)
