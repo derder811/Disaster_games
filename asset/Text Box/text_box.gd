@@ -17,6 +17,36 @@ var letter_time = 0.02
 var space_time = 0.04
 var punctuation_time = 0.15
 
+# Safety tips for different assets
+var safety_tips = {
+	"e_fan": [
+		"ELECTRICAL SAFETY TIPS:",
+		"• Check cords for damage before use",
+		"• Keep electrical devices away from water",
+		"• Don't overload electrical outlets",
+		"• Have backup power sources ready",
+		"• Know how to shut off main electrical breaker"
+	] as Array[String],
+	"bucket": [
+		"WATER SAFETY TIPS:",
+		"• Store clean water in covered containers",
+		"• Boil water if unsure of its safety",
+		"• Keep emergency water supplies (1 gallon per person per day)",
+		"• Know location of main water shut-off valve",
+		"• Have water purification tablets ready"
+	] as Array[String],
+	"frying_pan": [
+		"COOKING SAFETY TIPS:",
+		"• Never leave cooking unattended",
+		"• Keep pot handles turned inward",
+		"• Have a fire extinguisher nearby",
+		"• Know how to turn off gas/electricity quickly",
+		"• Keep flammable items away from heat sources"
+	] as Array[String]
+}
+
+var current_asset_type = ""
+
 signal finished_displaying()
 
 func _ready():
@@ -27,7 +57,23 @@ func _ready():
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_SPACE and is_text_complete:
-			queue_free()  # Close the text box
+			# Show safety tips dialog after text interaction
+			_show_safety_tips_dialog()
+
+func _show_safety_tips_dialog():
+	print("Current asset type: ", current_asset_type)  # Debug print
+	
+	# Find the DialogBox node in the scene
+	var dialog_box = get_tree().get_first_node_in_group("dialog_system")
+	if dialog_box and dialog_box.has_method("show_dialog"):
+		var tips: Array[String] = safety_tips.get(current_asset_type, ["No safety tips available for this item."] as Array[String])
+		print("Safety tips found: ", tips)  # Debug print
+		dialog_box.show_dialog("SAFETY TIPS", tips)
+	else:
+		print("DialogBox not found or doesn't have show_dialog method")
+	
+	# Close the text box after showing safety tips
+	queue_free()
 
 func display_text(text_to_display: String):
 	text = text_to_display

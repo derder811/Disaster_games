@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=4 uid="uid://dm8t7wtfh4fs6"]
+[gd_scene load_steps=58 format=4 uid="uid://dm8t7wtfh4fs6"]
 
 [ext_resource type="Texture2D" uid="uid://dt10x42mxphse" path="res://asset/Concrete.png" id="1_nj8df"]
 [ext_resource type="Texture2D" uid="uid://ex6vuokpyrv4" path="res://asset/Wall.png" id="2_1fdyj"]
@@ -45,6 +45,7 @@
 [ext_resource type="PackedScene" uid="uid://ejjuixy6nsot" path="res://asset/Furnitures/bed.tscn" id="46_1fdyj"]
 [ext_resource type="PackedScene" uid="uid://syisfjs6gwbf" path="res://e_fan.tscn" id="46_nj8df"]
 [ext_resource type="PackedScene" uid="uid://d356xsoo8fmtv" path="res://Scenes/player.tscn" id="46_rfgjq"]
+[ext_resource type="PackedScene" uid="uid://c6gs0utdxtg5r" path="res://Scenes/dialog_box.tscn" id="47_1fdyj"]
 [ext_resource type="PackedScene" uid="uid://ba5u1mr1tujdf" path="res://quest.tscn" id="47_quest"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnt18"]
@@ -2419,3 +2420,5 @@ remote_path = NodePath("../../../Camera2D")
 
 [node name="BED" parent="." instance=ExtResource("46_1fdyj")]
 position = Vector2(68.9065, -194.161)
+
+[node name="DialogBox" parent="." instance=ExtResource("47_1fdyj")]

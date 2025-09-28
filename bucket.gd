@@ -4,12 +4,7 @@ extends StaticBody2D
 @onready var sprite = $WaterBucket
 
 const lines: Array[String] = [
-	"This is a water bucket - essential for emergencies!",
-	"Water buckets can store clean water for drinking and cooking.",
-	"In disasters, water supply may be cut off for days.",
-	"Always keep buckets clean and covered to prevent contamination.",
-	"One person needs about 1 gallon of water per day for survival.",
-	"Fill buckets before storms or when disaster warnings are issued!"
+	"This is a water bucket - essential for emergencies!"
 ]
 
 func _ready():
@@ -21,9 +16,9 @@ func _on_interact():
 	if overlapping_bodies.size() > 0:
 		sprite.flip_h = overlapping_bodies[0].global_position.x < global_position.x
 		
-		# Use the new DialogManager autoload
+		# Use the new DialogManager autoload with asset type for safety tips
 		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above water bucket
-		DialogManager.start_dialog(dialog_position, lines)
+		DialogManager.start_dialog(dialog_position, lines, "bucket")
 		
 		# Complete the quest objective for water bucket interaction
 		var quest_node = get_node("../Quest")

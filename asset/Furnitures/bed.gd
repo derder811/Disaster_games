@@ -4,12 +4,8 @@ extends StaticBody2D
 @onready var sprite = $Sprite2D
 
 const lines: Array[String] = [
-	"This is a comfortable bed - essential for rest!",
-	"In an emergency, you can use it to:",
-	"• Get proper rest to maintain energy",
-	"• Stay warm with blankets and pillows",
-	"• Create a safe sleeping area",
-	"• Use bedding for makeshift shelter",
+	
+"This is a comfortable bed - essential for rest!"
 	
 ]
 

@@ -4,12 +4,7 @@ extends StaticBody2D
 @onready var sprite = $Sprite2D
 
 const lines: Array[String] = [
-	"This is a frying pan - essential for cooking!",
-	"In an emergency, you can use it to:",
-	"• Cook food over a fire or camp stove",
-	"• Boil water for purification",
-	"• Signal for help by reflecting sunlight",
-	
+	"This is a frying pan - essential for cooking!"
 ]
 
 func _ready():
@@ -22,9 +17,9 @@ func _on_interact():
 	if overlapping_bodies.size() > 0:
 		sprite.flip_h = overlapping_bodies[0].global_position.x < global_position.x
 		
-		# Use the new DialogManager autoload and await completion
+		# Use the new DialogManager autoload with asset type for safety tips
 		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above frying pan
-		await DialogManager.start_dialog(dialog_position, lines)
+		DialogManager.start_dialog(dialog_position, lines, "frying_pan")
 		
 		# Complete the quest objective for frying pan interaction
 		var quest_node = get_node("../Quest")

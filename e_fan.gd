@@ -4,12 +4,15 @@ extends StaticBody2D
 @onready var animated_sprite = $CharacterBody2D/AnimatedSprite2D
 
 const lines: Array[String] = [
-	"Turning on electric fan!",
-	"Electric fans are useful in emergencies:",
-	"• Provide cooling and air circulation",
-	"• Help with ventilation to clear smoke",
-	"• Can be powered by generators or power banks",
-	"• Essential for comfort during power outages"
+	"Electric Fan Safety Tips:",
+	"• Always turn off the fan before cleaning or maintenance",
+	"• Keep the fan away from water and moisture",
+	"• Check the power cord regularly for damage",
+	"• Don't insert objects into the fan blades",
+	"• Ensure proper ventilation around the fan",
+	"• Unplug during thunderstorms to prevent electrical damage",
+	"• Keep children away from moving fan blades",
+	"Fan turned off safely!"
 ]
 
 func _ready():
@@ -23,9 +26,9 @@ func _on_interact():
 		# Start the fan animation
 		animated_sprite.play("default")
 		
-		# Use the new DialogManager autoload
+		# Use DialogManager with asset type to show safety tips
 		var dialog_position = global_position + Vector2(0, -50)  # Position dialog above fan
-		DialogManager.start_dialog(dialog_position, lines)
+		DialogManager.start_dialog(dialog_position, lines, "e_fan")
 		
 		# Complete the quest objective for e_fan interaction
 		var quest_node = get_node("../Quest")
