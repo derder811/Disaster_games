@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://cfmugg8jh7hhj" path="res://Scenes/2_chair.tscn" id="17_4ck6m"]
 [ext_resource type="PackedScene" uid="uid://ws6abx78im8f" path="res://Scenes/chair.tscn" id="18_yy4so"]
 [ext_resource type="PackedScene" uid="uid://0mbv1ln2arvy" path="res://Scenes/study_table.tscn" id="19_ghu3s"]
-[ext_resource type="PackedScene" uid="uid://bwmt1oabxccwd" path="res://Scenes/player's_bedroom.tscn" id="20_2t8sg"]
 [ext_resource type="PackedScene" uid="uid://c44aag1m6tyk8" path="res://Scenes/player's_chair.tscn" id="21_e3myo"]
 [ext_resource type="Texture2D" uid="uid://cihjrrah58ihe" path="res://asset/Furnitures/Fan.png" id="22_yq88m"]
 [ext_resource type="Texture2D" uid="uid://b6dxnipmb2tsy" path="res://asset/Furnitures/Socket.png" id="23_g8avo"]
@@ -43,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://cj4q0wlj47qeo" path="res://frying_pan.tscn" id="43_ymkvi"]
 [ext_resource type="Texture2D" uid="uid://dpu5w3keqq86m" path="res://asset/Furnitures/Medicine 1.png" id="44_6jkof"]
 [ext_resource type="Texture2D" uid="uid://bdw5rsek1l7v6" path="res://asset/Furnitures/Medicine 2.png" id="45_jn4y4"]
+[ext_resource type="PackedScene" uid="uid://ejjuixy6nsot" path="res://asset/Furnitures/bed.tscn" id="46_1fdyj"]
 [ext_resource type="PackedScene" uid="uid://syisfjs6gwbf" path="res://e_fan.tscn" id="46_nj8df"]
 [ext_resource type="PackedScene" uid="uid://d356xsoo8fmtv" path="res://Scenes/player.tscn" id="46_rfgjq"]
 [ext_resource type="PackedScene" uid="uid://ba5u1mr1tujdf" path="res://quest.tscn" id="47_quest"]
@@ -2270,9 +2270,6 @@ position = Vector2(157, 174)
 [node name="StudyTable" parent="." instance=ExtResource("19_ghu3s")]
 position = Vector2(-10, -180)
 
-[node name="Player\'sBedroom" parent="." instance=ExtResource("20_2t8sg")]
-position = Vector2(100, -190)
-
 [node name="Player\'sChair" parent="." instance=ExtResource("21_e3myo")]
 position = Vector2(18, -184)
 
@@ -2419,3 +2416,6 @@ position = Vector2(498, 326)
 remote_path = NodePath("../../../Camera2D")
 
 [node name="Quest" parent="." instance=ExtResource("47_quest")]
+
+[node name="BED" parent="." instance=ExtResource("46_1fdyj")]
+position = Vector2(68.9065, -194.161)

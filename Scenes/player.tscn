@@ -146,7 +146,7 @@ states/walk/position = Vector2(358, 100)
 transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_cvnsp")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
-radius = 68.469
+radius = 48.2597
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
