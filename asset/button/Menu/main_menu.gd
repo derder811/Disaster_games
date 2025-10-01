@@ -84,7 +84,7 @@ func _on_play_button_pressed():
 # Function called when Options button is pressed
 func _on_options_button_pressed():
 	print("Options button pressed")
-	_animate_button_click("Options Button", func(): print("Options menu not implemented yet"))
+	_animate_button_click("Options Button", func(): _transition_to_scene("res://option.tscn"))
 
 # Function called when Exit button is pressed
 func _on_exit_button_pressed():

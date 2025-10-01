@@ -29,15 +29,15 @@ offset_bottom = 585.997
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SettingsPanel_VBoxContainer#HSeparator" type="HSeparator" parent="SettingsPanel#VBoxContainer"]
-layout_mode = 2
-
 [node name="SettingsPanel_VBoxContainer#TitleLabel" type="Label" parent="SettingsPanel#VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
-text = "GAME SETTINGS"
+text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SettingsPanel_VBoxContainer#HSeparator" type="HSeparator" parent="SettingsPanel#VBoxContainer"]
+layout_mode = 2
 
 [node name="SettingsPanel_VBoxContainer#ButtonContainer" type="HBoxContainer" parent="SettingsPanel#VBoxContainer"]
 layout_mode = 2
