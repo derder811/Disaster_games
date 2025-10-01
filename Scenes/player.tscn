@@ -1,11 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://d356xsoo8fmtv"]
+[gd_scene load_steps=22 format=3 uid="uid://d356xsoo8fmtv"]
 
 [ext_resource type="Script" uid="uid://coyyb14hqnus3" path="res://Scenes/movements.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://cbqtqy2ya8oqf" path="res://asset/Characters/Teen Male sprite.png" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://bx21va8686o4h" path="res://asset/Interaction/Interaction Area/interaction_area.gd" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://bvn8x7y2m3k4l" path="res://Scenes/self_talk_system.tscn" id="4_self_talk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
-size = Vector2(7, 15.875)
+size = Vector2(0, 4)
 
 [sub_resource type="Animation" id="Animation_fkybt"]
 length = 0.001
@@ -159,8 +160,12 @@ scale = Vector2(0.369792, 0.375)
 texture = ExtResource("1_v0iea")
 hframes = 19
 
+[node name="SelfTalkSystem" parent="." instance=ExtResource("4_self_talk")]
+position = Vector2(496, 347)
+scale = Vector2(1, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(500, 350)
+position = Vector2(491, 339)
 shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -174,9 +179,10 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/walk/blend_position = Vector2(0, 1)
 
 [node name="InteractionArea" type="Area2D" parent="."]
+position = Vector2(499, 333)
 script = ExtResource("3_6t5aa")
 metadata/_custom_type_script = "uid://bx21va8686o4h"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(499, 340)
+position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_vgqql")

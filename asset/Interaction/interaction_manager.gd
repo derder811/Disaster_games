@@ -82,3 +82,50 @@ func _input(event):
 			label.visible = false
 			await active_areas[0].interact.call()
 			can_interact = true
+			
+			# Show automatic self-talk message after interaction
+			_show_post_interaction_self_talk()
+
+# Function to show self-talk messages after interactions
+func _show_post_interaction_self_talk():
+	# Wait a moment for any existing dialogs to finish
+	await get_tree().create_timer(2.0).timeout
+	
+	# Try to find the self-talk system in the player
+	var self_talk_system = null
+	if player:
+		self_talk_system = player.get_node_or_null("SelfTalkSystem")
+	
+	if not self_talk_system:
+		# Try to find it by group
+		var self_talk_nodes = get_tree().get_nodes_in_group("self_talk_system")
+		if self_talk_nodes.size() > 0:
+			self_talk_system = self_talk_nodes[0]
+	
+	if self_talk_system and self_talk_system.has_method("show_post_interaction_self_talk"):
+		self_talk_system.show_post_interaction_self_talk()
+	else:
+		# Fallback: show a simple self-talk message directly
+		_show_fallback_self_talk()
+
+func _show_fallback_self_talk():
+	var self_talk_messages = [
+		"That was informative! I should remember these safety tips.",
+		"Good to know! This could be really useful in an emergency.",
+		"I'm learning so much about disaster preparedness.",
+		"These safety measures could save lives in a real disaster.",
+		"I should share this knowledge with my family and friends."
+	]
+	
+	var random_message = self_talk_messages[randi() % self_talk_messages.size()]
+	
+	if player:
+		# Get the player's sprite position for accurate text positioning
+		var sprite = player.get_node("Sprite2D")
+		var sprite_position = player.global_position
+		if sprite:
+			sprite_position = player.global_position + sprite.position
+		
+		# Position the text above the player's head (sprite top)
+		var dialog_position = sprite_position + Vector2(0, -80)
+		DialogManager.start_dialog(dialog_position, [random_message])
