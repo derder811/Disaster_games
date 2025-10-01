@@ -50,11 +50,11 @@ func _ready():
 		add_user_signal("objective_completed", [{"name": "objective_name", "type": TYPE_STRING}])
 
 func update_quest_ui():
-	# Update the quest UI based on current objectives
+	# Update the quest UI based on current objectives with 2-word puzzle messages
 	var objective_data = [
-		{"text": "Interact with Electric Fan", "completed": objectives["interact_efan"]},
-		{"text": "Interact with Water Bucket", "completed": objectives["interact_bucket"]},
-		{"text": "Interact with Frying Pan", "completed": objectives["interact_frying_pan"]}
+		{"text": "Fan Safety", "completed": objectives["interact_efan"]},
+		{"text": "Water Ready", "completed": objectives["interact_bucket"]},
+		{"text": "Fire Prevention", "completed": objectives["interact_frying_pan"]}
 	]
 	
 	print("Quest: Updating UI with ", objective_checkboxes.size(), " checkboxes and ", objective_labels.size(), " labels")

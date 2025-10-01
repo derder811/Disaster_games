@@ -61,16 +61,13 @@ func _process(delta):
 		# Sort by distance
 		active_areas.sort_custom(sort_by_distance_to_player)
 		
-		# Show label above closest area
-		var closest_area = active_areas[0]
-		label.text = BASE_TEXT + closest_area.action_name
-		label.visible = true
-		label.global_position = closest_area.global_position + Vector2(0, -50)
+		# Hide the interaction prompt - no longer showing "Press E to examine"
+		label.visible = false
 		
 		# Only print occasionally to avoid spam
 		if Engine.get_process_frames() % 60 == 0:  # Every 60 frames (1 second at 60fps)
-			print("InteractionManager: Showing label - '", label.text, "' at position: ", label.global_position)
-			print("Closest area: ", closest_area.action_name, " at ", closest_area.global_position)
+			var closest_area = active_areas[0]
+			print("InteractionManager: Interaction available but prompt hidden - ", closest_area.action_name, " at ", closest_area.global_position)
 	else:
 		# Hide label
 		if label.visible:
