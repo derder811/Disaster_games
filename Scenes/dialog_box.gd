@@ -17,7 +17,7 @@ var item_name: String = ""
 
 # Typing animation variables
 var is_typing: bool = false
-var typing_speed: float = 0.03  # Optimized speed for good readability
+var typing_speed: float = 0.005  # Much faster - was 0.03
 var current_text: String = ""
 var target_text: String = ""
 
@@ -39,6 +39,10 @@ func _ready():
 	# Hide dialog initially and set initial scale for pop animation
 	dialog_control.visible = false
 	dialog_control.scale = Vector2.ZERO
+	
+	# Set pivot to center for proper scaling animation
+	await get_tree().process_frame  # Wait one frame for size to be calculated
+	dialog_control.pivot_offset = dialog_control.size / 2
 
 func _input(event):
 	if not dialog_control.visible or is_animating:
@@ -68,6 +72,9 @@ func _animate_dialog_in():
 	is_animating = true
 	dialog_control.visible = true
 	dialog_control.scale = Vector2.ZERO
+	
+	# Set pivot to center for proper scaling animation
+	dialog_control.pivot_offset = dialog_control.size / 2
 	
 	# Create new tween for pop-in animation
 	tween = create_tween()
@@ -129,11 +136,11 @@ func _update_text():
 		var delay = typing_speed
 		match next_char:
 			".", "!", "?":
-				delay = typing_speed * 8  # Longer pause for sentence endings
+				delay = typing_speed * 2  # Much faster - was 8
 			",", ";", ":":
-				delay = typing_speed * 4  # Medium pause for commas
+				delay = typing_speed * 1.5  # Much faster - was 4
 			" ":
-				delay = typing_speed * 2  # Slight pause for spaces
+				delay = typing_speed * 1  # Much faster - was 2
 		
 		await get_tree().create_timer(delay).timeout
 		_update_text()

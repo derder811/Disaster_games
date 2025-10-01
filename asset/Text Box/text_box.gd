@@ -13,35 +13,35 @@ var text = ""
 var letter_index = 0
 var is_text_complete = false
 
-var letter_time = 0.02
-var space_time = 0.04
-var punctuation_time = 0.15
+var letter_time = 0.005  # Much faster - was 0.02
+var space_time = 0.01    # Much faster - was 0.04
+var punctuation_time = 0.03  # Much faster - was 0.15
 
-# Safety tips for different assets
+# Safety tips for different assets - combined into single messages
 var safety_tips = {
 	"e_fan": [
-		"ELECTRICAL SAFETY TIPS:",
-		"• Check cords for damage before use",
-		"• Keep electrical devices away from water",
-		"• Don't overload electrical outlets",
-		"• Have backup power sources ready",
-		"• Know how to shut off main electrical breaker"
+		"ELECTRICAL SAFETY TIPS:
+			 Check cords for damage before use. 
+			 Keep electrical devices away from water. 
+			 Don't overload electrical outlets. 
+			 Have backup power sources ready.
+			  Know how to shut off main electrical breaker."
 	] as Array[String],
 	"bucket": [
-		"WATER SAFETY TIPS:",
-		"• Store clean water in covered containers",
-		"• Boil water if unsure of its safety",
-		"• Keep emergency water supplies (1 gallon per person per day)",
-		"• Know location of main water shut-off valve",
-		"• Have water purification tablets ready"
+		"WATER SAFETY TIPS: 
+			Store clean water in covered containers. 
+			 Boil water if unsure of its safety. 
+			  Keep emergency water supplies. 
+			Know location of main water shut-off valve. 
+			Have water purification tablets ready."
 	] as Array[String],
 	"frying_pan": [
-		"COOKING SAFETY TIPS:",
-		"• Never leave cooking unattended",
-		"• Keep pot handles turned inward",
-		"• Have a fire extinguisher nearby",
-		"• Know how to turn off gas/electricity quickly",
-		"• Keep flammable items away from heat sources"
+		"COOKING SAFETY TIPS: 
+			Never leave cooking unattended. 
+			Keep pot handles turned inward. 
+			Have a fire extinguisher nearby. 
+			Know how to turn off gas/electricity quickly. 
+			Keep flammable items away from heat sources."
 	] as Array[String]
 }
 
