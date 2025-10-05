@@ -78,8 +78,8 @@ func _transition_to_scene(scene_path: String):
 
 # Function called when Play button is pressed
 func _on_play_button_pressed():
-	print("Play button pressed - Loading main game scene")
-	_animate_button_click("Play Button", func(): _transition_to_scene("res://GAME_SCENE/first_scenario.tscn"))
+	print("Play button pressed - Loading game selection scene")
+	_animate_button_click("Play Button", func(): _transition_to_scene("res://GAME SELECTION.tscn"))
 
 # Function called when Options button is pressed
 func _on_options_button_pressed():
