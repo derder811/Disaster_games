@@ -18,6 +18,9 @@ var interaction_ui: Node  # Reference to enhanced UI system
 # Animation
 @onready var animation_tree: AnimationTree = $AnimationTree
 
+# Bag/Inventory reference
+@onready var bag: Control
+
 # Input Actions - WASD movement
 const MOVE_LEFT = "move_left"    # A key
 const MOVE_RIGHT = "move_right"  # D key
@@ -28,8 +31,23 @@ const INTERACT = "interact"      # Space key
 func _ready():
 	setup_interaction_ui()
 	setup_enhanced_ui()
+	setup_bag_reference()
 	# Connect to physics process for smooth movement
 	set_physics_process(true)
+
+func setup_bag_reference():
+	# Find the bag as a child of the player
+	bag = get_node_or_null("Bag")
+	
+	if not bag:
+		print("✗ WARNING: Bag node not found as child of player")
+		print("Available child nodes:")
+		for child in get_children():
+			print("  - ", child.name, " (", child.get_class(), ")")
+	else:
+		print("✓ Bag found and connected successfully")
+		print("Bag type: ", bag.get_class())
+		print("Bag has get_items method: ", bag.has_method("get_items"))
 
 func setup_interaction_ui():
 	# The interaction UI is now handled by the scene-level InteractionUI node
@@ -211,7 +229,25 @@ func interact_with_item(item):
 		item.pickup()
 	else:
 		# Default pickup behavior
+		get_items(item)
 		item.queue_free()
+
+# Function to add items to bag inventory
+func get_items(itemData):
+	print("=== GET_ITEMS CALLED ===")
+	print("Player received item data: ", itemData)
+	print("Bag reference exists: ", bag != null)
+	
+	if bag and bag.has_method("get_items"):
+		print("✓ Calling bag.get_items with data: ", itemData)
+		bag.get_items(itemData)
+		print("✓ Item successfully added to bag")
+	else:
+		print("✗ ERROR: Bag not found or doesn't have get_items method")
+		if not bag:
+			print("  - Bag is null")
+		else:
+			print("  - Bag exists but missing get_items method")
 
 func interact_with_door(door):
 	print("Opening/closing door: ", door.name)

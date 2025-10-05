@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8m9n2p5q7r1s"]
 
-[ext_resource type="Texture2D" uid="uid://c8m9n2p5q7r1s" path="res://asset/Furnitures/Trash Bin.png" id="1_trash"]
+[ext_resource type="Texture2D" uid="uid://c1cv8dd1f0thl" path="res://asset/Furnitures/Trash Bin.png" id="1_trash"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trash"]
 size = Vector2(100, 150)

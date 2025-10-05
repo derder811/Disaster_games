@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c5xsfgjp25ln6" path="res://Scenes/kitchen_3_0.tscn" id="8_10f7w"]
 [ext_resource type="Texture2D" uid="uid://dm4w8cbgy5hfd" path="res://asset/Furnitures/Kitchen Cabinet.png" id="11_xra17"]
 [ext_resource type="Texture2D" uid="uid://bfgunadlwaaih" path="res://asset/Furnitures/Cup.png" id="13_x4j5f"]
-[ext_resource type="Texture2D" uid="uid://7ynnxc5s4lk0" path="res://asset/Furnitures/Canned Goods.png" id="14_gwr65"]
 [ext_resource type="PackedScene" uid="uid://dixfin3belv75" path="res://Scenes/1_chair.tscn" id="16_ppkgk"]
 [ext_resource type="PackedScene" uid="uid://cfmugg8jh7hhj" path="res://Scenes/2_chair.tscn" id="17_4ck6m"]
 [ext_resource type="PackedScene" uid="uid://ws6abx78im8f" path="res://Scenes/chair.tscn" id="18_yy4so"]
@@ -51,6 +50,7 @@
 [ext_resource type="PackedScene" uid="uid://bgll4a52be7j0" path="res://pause_scene.tscn" id="48_pause"]
 [ext_resource type="PackedScene" uid="uid://dphjv3kh6kr78" path="res://game_settings.tscn" id="49_settings"]
 [ext_resource type="PackedScene" uid="uid://cn78s64y0du1h" path="res://Settings Button.tscn" id="50_settings_btn"]
+[ext_resource type="PackedScene" uid="uid://m0x67hh66npn" path="res://ITEM.tscn" id="51_a7bhn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnt18"]
 texture = ExtResource("1_nj8df")
@@ -2263,11 +2263,6 @@ position = Vector2(330, -15)
 scale = Vector2(0.0380002, 0.0388889)
 texture = ExtResource("13_x4j5f")
 
-[node name="CannedGoods" type="Sprite2D" parent="."]
-position = Vector2(341, -14)
-scale = Vector2(0.00961537, 0.00928571)
-texture = ExtResource("14_gwr65")
-
 [node name="1Chair" parent="." instance=ExtResource("16_ppkgk")]
 position = Vector2(143, 153)
 
@@ -2437,3 +2432,15 @@ remote_path = NodePath("../../../Camera2D")
 [node name="GameSettings" parent="." instance=ExtResource("49_settings")]
 
 [node name="SettingsButton" parent="." instance=ExtResource("50_settings_btn")]
+
+[node name="Item" parent="." groups=["Player2", "dialog_system", "interactable"] instance=ExtResource("51_a7bhn")]
+position = Vector2(17.2266, -72.891)
+itemName = "Canned Goods"
+
+[node name="Item2" parent="." groups=["Player2", "dialog_system", "interactable"] instance=ExtResource("51_a7bhn")]
+position = Vector2(183.956, -85.7921)
+itemName = "First Aid Kit"
+
+[node name="Item3" parent="." groups=["Player2", "dialog_system", "interactable"] instance=ExtResource("51_a7bhn")]
+position = Vector2(-12.92, -122.56)
+itemName = "Medicine"
