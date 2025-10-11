@@ -54,7 +54,7 @@ func show_self_talk_message():
 	var messages = self_talk_messages["after_interaction"]
 	var random_message = messages[randi() % messages.size()]
 	
-	if player:
+	if player and is_instance_valid(player):
 		# Get the player's sprite for accurate text positioning
 		var sprite = player.get_node_or_null("Sprite2D")
 		var dialog_position = player.global_position
@@ -87,7 +87,7 @@ func trigger_self_talk(message_type: String = "after_interaction"):
 		var messages = self_talk_messages[message_type]
 		var random_message = messages[randi() % messages.size()]
 		
-		if player:
+		if player and is_instance_valid(player):
 			# Get the player's sprite for accurate text positioning
 			var sprite = player.get_node_or_null("Sprite2D")
 			var dialog_position = player.global_position

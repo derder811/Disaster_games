@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkmedkit123456"]
+
+[ext_resource type="Script" path="res://medkit.gd" id="1_medkit"]
+[ext_resource type="Texture2D" uid="uid://cpb01id7ipiqa" path="res://asset/Furnitures/First Aid Kit.png" id="2_medkit"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_medkit"]
+
+[node name="MedKit" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_medkit")
+itemName = "First Aid Kit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -1)
+shape = SubResource("CircleShape2D_medkit")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.999998, -1)
+scale = Vector2(0.0117308, 0.0104286)
+texture = ExtResource("2_medkit")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

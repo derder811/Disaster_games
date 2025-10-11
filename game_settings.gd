@@ -86,7 +86,7 @@ func show_settings():
 func _center_ui_on_camera():
 	# Get the current camera or use viewport center
 	var camera = get_viewport().get_camera_2d()
-	if camera:
+	if camera and is_instance_valid(camera):
 		# Position the UI at the camera's center
 		# Set the UI size first
 		custom_minimum_size = Vector2(300, 150)
@@ -100,7 +100,7 @@ func _center_ui_on_camera():
 	else:
 		# Fallback: try to find player and center on player position
 		var player = get_tree().get_first_node_in_group("Player2")
-		if player:
+		if player and is_instance_valid(player):
 			custom_minimum_size = Vector2(300, 150)
 			size = custom_minimum_size
 			global_position = player.global_position - (size / 2)

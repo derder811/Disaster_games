@@ -156,9 +156,9 @@ func update_nearby_interactables():
 		update_interaction_ui()
 
 func update_interaction_ui():
-	print("Player: update_interaction_ui called, closest_interactable: ", closest_interactable.name if closest_interactable else "null")
+	print("Player: update_interaction_ui called, closest_interactable: ", closest_interactable.name if closest_interactable and is_instance_valid(closest_interactable) else "null")
 	
-	if closest_interactable:
+	if closest_interactable and is_instance_valid(closest_interactable):
 		print("Player: Found interactable object: ", closest_interactable.name)
 		
 		# Use enhanced UI system
@@ -302,6 +302,6 @@ func _draw():
 		draw_circle(Vector2.ZERO, interaction_radius, Color.CYAN, false, 2.0)
 		
 		# Draw line to closest interactable
-		if closest_interactable:
+		if closest_interactable and is_instance_valid(closest_interactable):
 			var direction = (closest_interactable.global_position - global_position)
 			draw_line(Vector2.ZERO, direction, Color.GREEN, 2.0)

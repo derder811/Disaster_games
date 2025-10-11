@@ -16,7 +16,7 @@ var can_interact = true
 func _ready():
 	print("=== InteractionManager _ready() ===")
 	print("InteractionManager ready. Player found: ", player != null)
-	if player:
+	if player and is_instance_valid(player):
 		print("Player position: ", player.global_position)
 		print("Player groups: ", player.get_groups())
 		print("Player collision_layer: ", player.collision_layer)
@@ -24,7 +24,7 @@ func _ready():
 	else:
 		print("ERROR: Player not found in Player2 group!")
 	print("Label reference: ", label != null)
-	if label:
+	if label and is_instance_valid(label):
 		print("Label initial position: ", label.global_position)
 		print("Label initial visibility: ", label.visible)
 	print("=== End InteractionManager _ready() ===")
@@ -33,7 +33,8 @@ func _ready():
 func register_area(area: InteractionArea):
 	print("=== InteractionManager: REGISTERING AREA ===")
 	print("Area name: ", area.action_name)
-	print("Area position: ", area.global_position)
+	if area and is_instance_valid(area):
+		print("Area position: ", area.global_position)
 	print("Current active areas count: ", active_areas.size())
 	active_areas.append(area)
 	print("New active areas count: ", active_areas.size())
@@ -52,6 +53,8 @@ func unregister_area(area: InteractionArea):
 	print("=== End unregister area ===")
 
 func sort_by_distance_to_player(a, b):
+	if not player or not is_instance_valid(player) or not a or not is_instance_valid(a) or not b or not is_instance_valid(b):
+		return false
 	var distance_a = player.global_position.distance_to(a.global_position)
 	var distance_b = player.global_position.distance_to(b.global_position)
 	return distance_a < distance_b
@@ -67,7 +70,8 @@ func _process(delta):
 		# Only print occasionally to avoid spam
 		if Engine.get_process_frames() % 60 == 0:  # Every 60 frames (1 second at 60fps)
 			var closest_area = active_areas[0]
-			print("InteractionManager: Interaction available but prompt hidden - ", closest_area.action_name, " at ", closest_area.global_position)
+			if closest_area and is_instance_valid(closest_area):
+				print("InteractionManager: Interaction available but prompt hidden - ", closest_area.action_name, " at ", closest_area.global_position)
 	else:
 		# Hide label
 		if label.visible:
@@ -119,7 +123,7 @@ func _show_fallback_self_talk():
 	
 	var random_message = self_talk_messages[randi() % self_talk_messages.size()]
 	
-	if player:
+	if player and is_instance_valid(player):
 		# Get the player's sprite position for accurate text positioning
 		var sprite = player.get_node("Sprite2D")
 		var sprite_position = player.global_position
